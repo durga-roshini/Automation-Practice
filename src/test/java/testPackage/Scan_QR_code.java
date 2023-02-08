@@ -43,12 +43,16 @@ public class Scan_QR_code{
             String  qrCodeUrl= wdriver.findElement(By.xpath("(//img[@class='thumbimage'])[1]")).getAttribute("src");
             System.out.println("QR URL: "+qrCodeUrl);
 
+            //creating an object of URL class
             URL urlOfImage= new URL(qrCodeUrl);
+            // pass the URL object to store the file as image.
             BufferedImage bufferedImage= ImageIO.read(urlOfImage);
 
+            //Process the Image
             LuminanceSource luminanceSource= new BufferedImageLuminanceSource(bufferedImage);
             BinaryBitmap binaryBitmap= new BinaryBitmap(new HybridBinarizer(luminanceSource));
 
+            //To capture details of QR Code.
             Result result = new MultiFormatReader().decode(binaryBitmap);
             String txtInQRCode = result.getText();
             System.out.println("Converted String: "+txtInQRCode);
